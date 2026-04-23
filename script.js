@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
     updateThemeIcon(savedTheme);
+    applyThemeColors(savedTheme);
 
     function updateThemeIcon(theme) {
         if (themeIcon) {
@@ -33,7 +34,29 @@ document.addEventListener('DOMContentLoaded', () => {
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
         updateThemeIcon(newTheme);
+        applyThemeColors(newTheme);
     });
+
+    function applyThemeColors(theme) {
+        const isDark = theme === 'dark';
+        
+        document.body.style.background = isDark 
+            ? 'linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.95))' 
+            : 'linear-gradient(135deg, rgba(30, 64, 175, 0.95), rgba(59, 130, 246, 0.85))';
+        
+        document.querySelectorAll('.hero').forEach(el => {
+            el.style.backgroundImage = 'url("assets/img4.webp")';
+            el.querySelector('.hero::before')?.style?.setProperty('background', isDark 
+                ? 'rgba(15, 23, 42, 0.85)' 
+                : 'rgba(30, 64, 175, 0.75)');
+        });
+        
+        document.querySelectorAll('.section').forEach(el => {
+            el.style.background = isDark 
+                ? 'linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.95))' 
+                : 'linear-gradient(135deg, rgba(30, 64, 175, 0.9), rgba(59, 130, 246, 0.8))';
+        });
+    }
 
     const isAdmin = new URLSearchParams(window.location.search).get('admin') === 'true';
     if (isAdmin) {
@@ -110,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!container) return;
         const images = ['img1.webp', 'img2.webp', 'img3.webp', 'img4.webp', 'img5.webp', 'img6.webp', 'img7.webp', 'img8.webp', 'img9.webp'];
         container.innerHTML = images.map((img, i) => `
-            <div class="gallery-item" onclick="openLightbox('assets/${img}')">
+            <div class="glass-card gallery-item" onclick="openLightbox('assets/${img}')">
                 <img src="assets/${img}" alt="Building Image ${i + 1}" loading="lazy">
             </div>
         `).join('');
@@ -137,10 +160,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById('foodList');
         if (!container) return;
         if (data.foodPlaces.length === 0) {
-            container.innerHTML = '<p style="text-align:center;color:var(--secondary);">No food places added yet.</p>';
+            container.innerHTML = '<p style="text-align:center;color:rgba(255,255,255,0.7);font-style:italic;">No food places added yet. Admin can add from dashboard.</p>';
         } else {
             container.innerHTML = data.foodPlaces.map((place) => `
-                <div class="place-card">
+                <div class="glass-card place-card">
                     <h3>${escapeHtml(place.name)}</h3>
                     <p class="place-type">${escapeHtml(place.type)}</p>
                     <p class="place-distance">${escapeHtml(place.distance)}</p>
@@ -155,10 +178,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById('shopsList');
         if (!container) return;
         if (data.shops.length === 0) {
-            container.innerHTML = '<p style="text-align:center;color:var(--secondary);">No shops added yet.</p>';
+            container.innerHTML = '<p style="text-align:center;color:rgba(255,255,255,0.7);font-style:italic;">No shops added yet. Admin can add from dashboard.</p>';
         } else {
             container.innerHTML = data.shops.map((shop) => `
-                <div class="place-card">
+                <div class="glass-card place-card">
                     <h3>${escapeHtml(shop.name)}</h3>
                     <p class="place-type">${escapeHtml(shop.type)}</p>
                     <p class="place-distance">${escapeHtml(shop.distance)}</p>
@@ -173,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById('adminFoodList');
         if (!container) return;
         if (data.foodPlaces.length === 0) {
-            container.innerHTML = '<p style="color:var(--secondary);">No food places added yet.</p>';
+            container.innerHTML = '<p style="color:rgba(255,255,255,0.7);">No food places added yet.</p>';
         } else {
             container.innerHTML = data.foodPlaces.map((place, i) => `
                 <div class="data-item">
@@ -194,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById('adminShopsList');
         if (!container) return;
         if (data.shops.length === 0) {
-            container.innerHTML = '<p style="color:var(--secondary);">No shops added yet.</p>';
+            container.innerHTML = '<p style="color:rgba(255,255,255,0.7);">No shops added yet.</p>';
         } else {
             container.innerHTML = data.shops.map((shop, i) => `
                 <div class="data-item">
@@ -215,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById('inquiriesList');
         if (!container) return;
         if (data.inquiries.length === 0) {
-            container.innerHTML = '<p style="color:var(--secondary);">No inquiries yet.</p>';
+            container.innerHTML = '<p style="color:rgba(255,255,255,0.7);">No inquiries yet.</p>';
         } else {
             container.innerHTML = data.inquiries.map((inq, i) => `
                 <div class="data-item">
