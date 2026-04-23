@@ -41,20 +41,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const isDark = theme === 'dark';
         
         document.body.style.background = isDark 
-            ? 'linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.95))' 
-            : 'linear-gradient(135deg, rgba(30, 64, 175, 0.95), rgba(59, 130, 246, 0.85))';
-        
-        document.querySelectorAll('.hero').forEach(el => {
-            el.style.backgroundImage = 'url("assets/img4.webp")';
-            el.querySelector('.hero::before')?.style?.setProperty('background', isDark 
-                ? 'rgba(15, 23, 42, 0.85)' 
-                : 'rgba(30, 64, 175, 0.75)');
-        });
+            ? 'linear-gradient(135deg, rgba(41, 33, 33, 0.98), rgba(101, 8, 49, 0.9))' 
+            : 'linear-gradient(135deg, rgba(58, 82, 52, 0.95), rgba(117, 91, 62, 0.9))';
         
         document.querySelectorAll('.section').forEach(el => {
             el.style.background = isDark 
-                ? 'linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.95))' 
-                : 'linear-gradient(135deg, rgba(30, 64, 175, 0.9), rgba(59, 130, 246, 0.8))';
+                ? 'linear-gradient(135deg, rgba(41, 33, 33, 0.98), rgba(101, 8, 49, 0.95))' 
+                : 'linear-gradient(135deg, rgba(41, 31, 21, 0.95), rgba(58, 82, 52, 0.9))';
+        });
+        
+        document.querySelectorAll('.glass-card').forEach(el => {
+            el.style.background = isDark 
+                ? 'rgba(41, 33, 33, 0.7)' 
+                : 'rgba(250, 230, 205, 0.15)';
+            el.style.borderColor = isDark 
+                ? 'rgba(219, 189, 189, 0.15)' 
+                : 'rgba(250, 230, 205, 0.25)';
         });
     }
 
